@@ -33,6 +33,6 @@ public class BaseEntity  implements Serializable {
 
     @LastModifiedDate
     @UpdateTimestamp
-    @Column(updatable = false)
+    @Column
     protected Instant edited  = Instant.now();
 }

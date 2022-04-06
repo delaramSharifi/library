@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -35,5 +36,25 @@ public class PersonServiceImpl implements PersonService{
                 .map(personMapper::toPersonDto)
                 .collect(Collectors.toList());
         return personDtos;
+    }
+
+    @Override
+    public PersonDto findById(Integer id) {
+        PersonDto findPersonDto = personRepository.findById(id)
+                .filter(Objects::nonNull)
+                .map(personMapper::toPersonDto)
+                .orElse(null);
+        return findPersonDto;
+    }
+
+    @Override
+    public void deletePerson(Integer id) {
+        personRepository.deleteById(id);
+    }
+
+    @Override
+    public PersonDto nameContains(String name) {
+        PersonEntity personContains = personRepository.findByNameContains(name);
+        return personMapper.toPersonDto(personContains);
     }
 }
