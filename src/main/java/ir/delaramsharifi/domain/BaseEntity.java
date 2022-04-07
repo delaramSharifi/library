@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +18,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity  implements Serializable {
 
     @Id
@@ -28,11 +27,11 @@ public class BaseEntity  implements Serializable {
 
     @CreatedDate
     @CreationTimestamp
-    @Column(updatable = false, nullable = false)
+    @Column(name = "created",updatable = false, nullable = false)
     protected Instant created = Instant.now();
 
     @LastModifiedDate
     @UpdateTimestamp
-    @Column
+    @Column(name = "edited")
     protected Instant edited  = Instant.now();
 }
