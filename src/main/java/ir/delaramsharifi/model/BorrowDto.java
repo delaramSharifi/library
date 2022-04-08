@@ -1,6 +1,5 @@
 package ir.delaramsharifi.model;
 
-
 import lombok.*;
 
 import java.time.Instant;
@@ -11,7 +10,8 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class PersonDto {
+public class BorrowDto {
+
 
     private Integer id;
 
@@ -19,8 +19,13 @@ public class PersonDto {
 
     private Instant edited;
 
-    private String name;
+    private String dueDate;
 
-    private String description;
+    private String returnDate;
 
+    private String issue;
+
+    private MemberDto memberDto;
+
+    private BookDto bookDto;
 }

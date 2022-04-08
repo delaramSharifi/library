@@ -5,6 +5,7 @@ import ir.delaramsharifi.mapper.PersonMapper;
 import ir.delaramsharifi.model.PersonDto;
 import ir.delaramsharifi.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,6 +17,7 @@ import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
+@Slf4j
 @RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService{
 

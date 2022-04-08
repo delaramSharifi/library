@@ -30,8 +30,8 @@ public class BookEntity  extends BaseEntity {
     @Column(name = "category", nullable = false, length = 40)
     private String category;
 
-    @Column(name = "available", nullable = false, length = 160)
-    private Boolean available;
+    @Column(name = "activity_status", nullable = false, length = 160)
+    private Boolean activityStatus;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

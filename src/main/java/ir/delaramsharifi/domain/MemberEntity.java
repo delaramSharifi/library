@@ -21,14 +21,20 @@ public class MemberEntity extends BaseEntity{
     @Column(name = "last_name", nullable = false, length = 40)
     private String lastName;
 
-    @Column(name = "natinal_code", nullable = false, length = 10)
-    private String natinalCode;
+    @Column(name = "national_code", nullable = false, length = 10)
+    private String nationalCode;
 
     @Column(name = "phone_number", nullable = false, length = 11)
     private String phoneNumber;
 
-    @Column(name = "email", nullable = false, length = 11)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
+
+    @Column(name = "member_date", nullable = false, length = 10)
+    private String memberDate;
+
+    @Column(name = "expiry_date", nullable = false, length = 10)
+    private String expiryDate;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

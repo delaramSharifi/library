@@ -2,10 +2,7 @@ package ir.delaramsharifi.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -15,6 +12,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbl_borrow",schema = "library")
 public class BorrowEntity extends BaseEntity{
+
+    @Column(name = "due_date", nullable = false, length = 10)
+    private String dueDate;
+
+    @Column(name = "return_date", nullable = false, length = 10)
+    private String returnDate;
+
+    @Column(name = "issue", nullable = false, length = 10)
+    private String issue;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
