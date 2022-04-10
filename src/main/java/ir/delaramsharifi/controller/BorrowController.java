@@ -4,9 +4,13 @@ package ir.delaramsharifi.controller;
 import ir.delaramsharifi.mapper.BookMapper;
 import ir.delaramsharifi.model.BookDto;
 import ir.delaramsharifi.model.BorrowDto;
+import ir.delaramsharifi.model.MemberDto;
 import ir.delaramsharifi.service.BookService;
 import ir.delaramsharifi.service.BorrowService;
+import ir.delaramsharifi.service.MemberService;
+import ir.delaramsharifi.utils.DateTimeUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +23,22 @@ public class BorrowController {
     private final BorrowService borrowService;
     private final BookService bookService;
     private final BookMapper bookMapper;
+    private final MemberService memberService;
 
     @PostMapping(path = "/newBook",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> newBook(@RequestBody BorrowDto newBorrow) {
 
-//        todo: check membership date is valid
-//        todo: check book is activity status is true by search bookId
+          MemberDto memberDto =  memberService.findMemberDtoById(newBorrow.getMemberId());
+            if(DateTimeUtils.isTodayAfterPersianDate(memberDto.getExpiryDate())){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Member Date is Expired");
+            }
+
+        BookDto bookDto = bookService.findBookDtoById(newBorrow.getBookId());
+            if(bookDto.getActivityStatus()){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Book Not Available");
+            }
 
         BorrowDto savedBorrowDto = borrowService.save(newBorrow);
 

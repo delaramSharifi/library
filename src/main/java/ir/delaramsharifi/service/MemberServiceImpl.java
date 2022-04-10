@@ -59,4 +59,11 @@ public class MemberServiceImpl implements MemberService {
         MemberEntity memberContains = memberRepository.findByLastNameContains(lastname);
         return memberMapper.toMemberDto(memberContains);
     }
+
+    @Override
+    public boolean isMemberDateValid(String expiryDate) {
+
+
+        return false;
+    }
 }

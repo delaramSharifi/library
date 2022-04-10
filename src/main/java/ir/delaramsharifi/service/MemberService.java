@@ -19,4 +19,6 @@ public interface MemberService {
     List<MemberDto> findAll();
 
     MemberDto last_nameContains(String lastname);
+
+    boolean isMemberDateValid(String expiryDate);
 }
