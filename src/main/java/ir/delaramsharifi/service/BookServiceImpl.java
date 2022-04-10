@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookDto findById(Integer id) {
+    public BookDto findBookDtoById(Integer id) {
         BookDto findBookDto = bookRepository.findById(id)
                 .filter(Objects::nonNull)
                 .map(bookMapper::toBookDto)

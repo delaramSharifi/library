@@ -41,7 +41,7 @@ public class BookController {
     @GetMapping(path = "/{bookId}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> findById(@PathVariable Integer bookId) {
-        BookDto findBookDto = bookService.findById(bookId);
+        BookDto findBookDto = bookService.findBookDtoById(bookId);
         return ResponseEntity.ok(findBookDto);
     }
 

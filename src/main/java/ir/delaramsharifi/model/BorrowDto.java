@@ -26,6 +26,8 @@ public class BorrowDto {
     private String issue;
 
     private MemberDto memberDto;
+    private Integer memberId;
 
     private BookDto bookDto;
+    private Integer bookId;
 }

@@ -23,4 +23,11 @@ public interface BookMapper {
 
     @IterableMapping(qualifiedByName = "toBookEntity")
     List<BookEntity> toBookEntities(List<BookDto> sources);
+
+    @Mappings({
+            @Mapping(target = "activityStatus", constant = "false")
+    })
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    BookDto toBookDto_setActivityStatusToFalse(BookDto source);
+
 }

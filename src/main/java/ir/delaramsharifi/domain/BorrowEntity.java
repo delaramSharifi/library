@@ -19,7 +19,7 @@ public class BorrowEntity extends BaseEntity{
     @Column(name = "return_date", nullable = false, length = 10)
     private String returnDate;
 
-    @Column(name = "issue", nullable = false, length = 10)
+    @Column(name = "issue", nullable = false, length = 500)
     private String issue;
 
     @EqualsAndHashCode.Exclude

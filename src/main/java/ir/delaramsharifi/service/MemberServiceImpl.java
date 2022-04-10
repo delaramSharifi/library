@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto findById(Integer id) {
+    public MemberDto findMemberDtoById(Integer id) {
         MemberDto findMemberDto = memberRepository.findById(id)
                 .filter(Objects::nonNull)
                 .map(memberMapper::toMemberDto)

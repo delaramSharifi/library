@@ -40,7 +40,7 @@ public class MemberController {
     @GetMapping(path = "/{memberId}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> findById(@PathVariable Integer memberId) {
-        MemberDto findMemberDto = memberService.findById(memberId);
+        MemberDto findMemberDto = memberService.findMemberDtoById(memberId);
         return ResponseEntity.ok(findMemberDto);
     }
 
