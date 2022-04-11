@@ -19,15 +19,23 @@ public interface BookMapper {
     BookEntity toBookEntity(BookDto source);
 
     @IterableMapping(qualifiedByName = "toBookDto")
-    List<BookDto> tBookDtos(List<BookEntity> sources);
+    List<BookDto> toBookDtos(List<BookEntity> sources);
 
     @IterableMapping(qualifiedByName = "toBookEntity")
     List<BookEntity> toBookEntities(List<BookDto> sources);
 
+    @Named("toBookDto_setActivityStatusToFalse")
     @Mappings({
             @Mapping(target = "activityStatus", constant = "false")
     })
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     BookDto toBookDto_setActivityStatusToFalse(BookDto source);
+
+    @Named("toBookDto_setActivityStatusToTrue")
+    @Mappings({
+            @Mapping(target = "activityStatus", constant = "true")
+    })
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    BookDto toBookDto_setActivityStatusToTrue(BookDto source);
 
 }

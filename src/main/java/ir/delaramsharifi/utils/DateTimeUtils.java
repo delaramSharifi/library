@@ -6,10 +6,7 @@ import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +41,17 @@ public class DateTimeUtils {
     public static String fromDateToPersianString(Date date, String pattern) {
         return new SimpleDateFormat(pattern, PERSIAN_LOCALE).format(date);
     }
+
+    public static String getToDayAsPersianString() {
+        String persianCharDate = new SimpleDateFormat("YYYY/MM/DD", PERSIAN_LOCALE).format(new Date());
+         return getDbNum(persianCharDate);
+    }
+
+    public static String getTenDayAfterTodayAsPersianString() {
+        String persianCharDate = new SimpleDateFormat("YYYY/MM/DD", PERSIAN_LOCALE).format(LocalDate.now().plusDays(10));
+        return getDbNum(persianCharDate);
+    }
+
 
     public static String fromDateToPersianString(Date date, String pattern, ULocale locale) {
         return new SimpleDateFormat(pattern, locale).format(date);
@@ -124,6 +132,21 @@ public class DateTimeUtils {
      */
     public static boolean isTodayAfterPersianDate(String persianDate){
         return new Date().after(persianDateToJavaDate(persianDate));
+    }
+
+    private static String getDbNum(String inputString) {
+        String dbNum = inputString
+                .replaceAll("\u06F0", "0")         //0
+                .replaceAll("\u06F1", "1")         //1
+                .replaceAll("\u06F2", "2")         //2
+                .replaceAll("\u06F3", "3")         //3
+                .replaceAll("\u06F4", "4")         //4
+                .replaceAll("\u06F5", "5")         //5
+                .replaceAll("\u06F6", "6")         //6
+                .replaceAll("\u06F7", "7")         //7
+                .replaceAll("\u06F8", "8")         //8
+                .replaceAll("\u06F9", "9");        //9
+        return dbNum;
     }
 
 }

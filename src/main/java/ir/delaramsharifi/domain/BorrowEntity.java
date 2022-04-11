@@ -16,7 +16,7 @@ public class BorrowEntity extends BaseEntity{
     @Column(name = "due_date", nullable = false, length = 10)
     private String dueDate;
 
-    @Column(name = "return_date", nullable = false, length = 10)
+    @Column(name = "return_date", length = 10)
     private String returnDate;
 
     @Column(name = "issue", nullable = false, length = 500)

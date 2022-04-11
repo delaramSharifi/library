@@ -4,7 +4,7 @@ import ir.delaramsharifi.model.BorrowDto;
 
 public interface BorrowService {
 
-    BorrowDto save(BorrowDto newBorrowDto);
+    BorrowDto saveBorrowAndBook(BorrowDto newBorrowDto);
 
     BorrowDto findByBookIdAndMemberId(BorrowDto updateBorrowDto);
 }

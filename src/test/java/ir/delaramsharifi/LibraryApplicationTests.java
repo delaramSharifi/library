@@ -27,10 +27,14 @@ class LibraryApplicationTests {
     @Test
     void testDate(){
         boolean returnValue = memberService.isMemberDateValid("1400/01/22");
-        String expiryDate = "1401/01/22";
+/*        String expiryDate = "1401/01/22";
 
         Date date2 = DateTimeUtils.fromPersianDateToDate(1400, 0, 22, 2, 0, 0);
-        System.out.println(DateTimeUtils.isTodayAfterPersianDate("1401/01/21"));
+        System.out.println(DateTimeUtils.isTodayAfterPersianDate("1401/01/21"));*/
+
+       String pDate=  DateTimeUtils.fromDateToPersianString(new Date(), "YYYY/MM/DD");
+        System.out.println(DateTimeUtils.getToDayAsPersianString());
+
 
         Assertions.assertEquals(returnValue,false);
     }

@@ -25,11 +25,10 @@ public class BorrowServiceImpl implements BorrowService {
     private final BookMapper bookMapper;
 
     @Override
-    public BorrowDto save(BorrowDto newBorrowDto) {
+    public BorrowDto saveBorrowAndBook(BorrowDto newBorrowDto) {
 
-        borrowMapper.updateBorrowDto_BookDtoByBookIdAndMemberDtoByMemberId(newBorrowDto, newBorrowDto);
         BorrowEntity savedBorrow = borrowRepository.save(borrowMapper.toBorrowEntity(newBorrowDto));
-        bookService.save(bookMapper.toBookDto_setActivityStatusToFalse(newBorrowDto.getBookDto()));
+        bookService.save(newBorrowDto.getBookDto());
 
         return Optional.of(savedBorrow)
                 .filter(Objects::nonNull)

@@ -4,6 +4,7 @@ package ir.delaramsharifi.controller;
 import ir.delaramsharifi.exception.controller.NotAcceptableException;
 import ir.delaramsharifi.exception.controller.NotFoundException;
 import ir.delaramsharifi.mapper.BookMapper;
+import ir.delaramsharifi.mapper.BorrowMapper;
 import ir.delaramsharifi.model.BookDto;
 import ir.delaramsharifi.model.BorrowDto;
 import ir.delaramsharifi.model.MemberDto;
@@ -25,6 +26,7 @@ public class BorrowController {
     private final BookService bookService;
     private final BookMapper bookMapper;
     private final MemberService memberService;
+    private final BorrowMapper borrowMapper;
 
     @PostMapping(path = "/newBook",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -35,6 +37,8 @@ public class BorrowController {
 
         if (memberDto == null) {
             throw new NotFoundException("Member Not Found");
+        } else {
+            newBorrow.setMemberDto(memberDto);
         }
 
         if (DateTimeUtils.isTodayAfterPersianDate(memberDto.getExpiryDate())) {
@@ -45,13 +49,17 @@ public class BorrowController {
 
         if (bookDto == null) {
             throw new NotFoundException("Book Not Found");
+        } else {
+            newBorrow.setBookDto(bookDto);
         }
 
-        if (bookDto.getActivityStatus()) {
+        if (!bookDto.getActivityStatus()) {
             throw new NotFoundException("Book Is Not Available");
         }
 
-        BorrowDto savedBorrowDto = borrowService.save(newBorrow);
+        newBorrow = borrowMapper.toBorrowDto_setTodayForDueDateAndBookActivityStatusFalse(newBorrow);
+
+        BorrowDto savedBorrowDto = borrowService.saveBorrowAndBook(newBorrow);
 
         return ResponseEntity.ok(savedBorrowDto);
     }
@@ -63,10 +71,16 @@ public class BorrowController {
 
         BorrowDto foundBorrowDto = borrowService.findByBookIdAndMemberId(updateBorrow);
 
-//       todo: call book service and in book service update book availability to true
-        BookDto updatedBook = bookMapper.toBookDto_setActivityStatusToFalse(foundBorrowDto.getBookDto());
-//        bookService.save(updatedBook);
-        return ResponseEntity.ok(foundBorrowDto);
+        if (foundBorrowDto == null) {
+            throw new NotFoundException("Data Not Found");
+        }
+
+        borrowMapper.updateBorrowDtoSetIssue(foundBorrowDto, updateBorrow.getIssue());
+        updateBorrow = borrowMapper.toBookDto_setTodayForReturnDateAndBookActivityStatusTrue(foundBorrowDto);
+
+        BorrowDto savedBorrowDto = borrowService.saveBorrowAndBook(updateBorrow);
+
+        return ResponseEntity.ok(savedBorrowDto);
     }
 
 }
